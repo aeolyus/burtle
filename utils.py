@@ -9,7 +9,7 @@ opensans_font = font.Font(font.get_default_font(), 11)
 messages = ["hello", "there"]
 color = RED
 pos = [0, 0]
-USER_IN = ""
+USER_IN = USER_PREV = ""
 
 #Utility functions
 def user_key_manager(keys, last_key):
@@ -37,10 +37,15 @@ def user_key_manager(keys, last_key):
 def input_manager():
     global EXEC_CLEAR
     global USER_IN
+    global USER_PREV
     draw_input(screen, USER_IN, EXEC_CLEAR, opensans_font)
     if EXEC_CLEAR:
         messages.append(USER_IN)
-        execute_input(USER_IN, screen)
+        if USER_IN[-1] == ":":
+            USER_PREV += USER_IN
+        else:
+            execute_input(USER_PREV + USER_IN, screen)
+            USER_PREV = ""
         USER_IN = ""
         EXEC_CLEAR = False
 
