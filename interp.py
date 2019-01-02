@@ -1,4 +1,5 @@
 from pygame import draw
+import sys
 
 def execute_input(user_input, screen):
     tokens = user_input.split()
@@ -54,4 +55,6 @@ def bomb(screen, n):
 	for i in range(-n, n+1):
 		for j in range(-n, n+1):
 			fill(screen, color, (pos[0] + i, pos[1] + j))
-CMDS = {"mv": move, "jump": jump, "col": chg_col, "do": do_for, "bomb": bomb}
+def quit(screen):
+    sys.exit()
+CMDS = {"mv": move, "jump": jump, "col": chg_col, "do": do_for, "bomb": bomb, "exit": quit}

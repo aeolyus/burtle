@@ -1,13 +1,17 @@
 from constants import *
 from interp import *
 
+#Setup
 init()
 font.init()
 screen = display.set_mode(SIZE)
 opensans_font = font.Font(font.get_default_font(), 11)
 messages = ["hello", "there"]
+color = RED
+pos = [0, 0]
 USER_IN = ""
 
+#Utility functions
 def user_key_manager(keys, last_key):
     global USER_IN
     global EXEC_CLEAR
@@ -36,7 +40,6 @@ def input_manager():
     draw_input(screen, USER_IN, EXEC_CLEAR, opensans_font)
     if EXEC_CLEAR:
         messages.append(USER_IN)
-        print(messages)
         execute_input(USER_IN, screen)
         USER_IN = ""
         EXEC_CLEAR = False
@@ -48,7 +51,6 @@ def draw_output(screen, messages, font_obj):
     #Text rendering
     for i in range(min(5, len(messages))):
         message = str(messages[::-1][i])
-        print(message)
         col = (140, 140, 140) if i else (0, 0, 0)
         textsurface = font_obj.render(message, True, col)
         screen.blit(textsurface,(10, WIDTH + 10 + i * 17))
@@ -60,3 +62,4 @@ def draw_input(screen, text, clear, font_obj):
     #Text rendering
     textsurface = font_obj.render(str(text), True, (20, 20, 20))
     screen.blit(textsurface,(10, 605))
+

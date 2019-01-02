@@ -5,15 +5,6 @@ from interp import *
 from utils import *
 import sys
 
-## Setup
-init()
-font.init()
-messages = ["hello","there"]
-opensans_font = font.Font(font.get_default_font(), 11)
-pos = [0, 0]
-color = RED
-
-
 def game_loop():
     k = 0
     last_key = ""
@@ -28,7 +19,6 @@ def game_loop():
         input_manager()
         display.flip()
         k += 1
-
 
 game_loop()
 
