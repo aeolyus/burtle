@@ -5,6 +5,8 @@ import sys
 import pygame.transform as pytr
 import pygame.image as pyim
 import pygame.font as pyfont
+from interp import *
+from constants import *
 
 ## Constants
 WIDTH, HEIGHT = 480, 630
@@ -23,6 +25,8 @@ pyfont.init()
 screen = display.set_mode(SIZE)
 messages = ["hello","there"]
 opensans_font = pyfont.Font(pyfont.get_default_font(), 11)
+pos = [0, 0]
+color = RED
 
 def user_key_manager(keys, last_key):
     global USER_IN
@@ -51,7 +55,8 @@ def input_manager():
     global USER_IN
     draw_input(screen, USER_IN, EXEC_CLEAR, opensans_font)
     if EXEC_CLEAR:
-        execute_input(USER_IN)
+        messages.append(USER_IN)
+        execute_input(USER_IN, screen)
         USER_IN = ""
         EXEC_CLEAR = False
 
@@ -76,26 +81,26 @@ def draw_input(screen, text, clear, font_obj):
     screen.blit(textsurface,(10, 605))
 
 ### Move to another file!
-def execute_input(USER_IN):
-    messages.append(USER_IN)
-    tokens = USER_IN.split()
-    #move(1, 2)
-    funcs = {"move":move}
-    funcs[tokens[0]](*tokens[1:])
-
-colors = [(50,200,50), (255,0,0), (23,44,180)]
-color = [255, 255, 255]
-pos = [0, 0]
-
-# Commands
-def move(dir, steps):
-    for i in range(int(steps)):
-        draw.rect(screen, colors[int(steps)%2], [pos[0]*30, pos[1]*30, 30, 30])
-        if (dir == 'l' or dir == 'r'):
-            pos[0] += -1 if dir == 'l' else 1
-        if (dir == 'u' or dir == 'd'):
-            pos[1] += -1 if dir == 'u' else 1
-        print(pos) #debugging
+#def execute_input(USER_IN):
+#    messages.append(USER_IN)
+#    tokens = USER_IN.split()
+#    #move(1, 2)
+#    funcs = {"move":move}
+#    funcs[tokens[0]](*tokens[1:])
+#
+#colors = [(50,200,50), (255,0,0), (23,44,180)]
+#color = [255, 255, 255]
+#pos = [0, 0]
+#
+## Commands
+#def move(dir, steps):
+#    for i in range(int(steps)):
+#        draw.rect(screen, colors[int(steps)%2], [pos[0]*30, pos[1]*30, 30, 30])
+#        if (dir == 'l' or dir == 'r'):
+#            pos[0] += -1 if dir == 'l' else 1
+#        if (dir == 'u' or dir == 'd'):
+#            pos[1] += -1 if dir == 'u' else 1
+#        print(pos) #debugging
 ### Moved!
 
 def game_loop():
