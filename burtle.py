@@ -29,21 +29,19 @@ def user_key_manager(keys, last_key):
     global EXEC_CLEAR
     untouched = True
     #User Input
-    for i, key in enumerate(ALPHA_NUM_KEYS):
-        if keys[key]:
-            untouched = False
-            char_key = ALPHA_NUM_CHARS[i]
-            if char_key != last_key:
-                last_key = char_key
-                if char_key == "!":
-                    EXEC_CLEAR = True
-                elif char_key == "B":
-                    if keys[K_LSHIFT] or keys[K_RSHIFT]:
-                        USER_IN = ""
-                    USER_IN = USER_IN[:len(USER_IN) - 1]
-                else:
-                    USER_IN += char_key
-            break
+    index = [i for i, key in enumerate(ALPHA_NUM_KEYS) if keys[key]]
+    if index:
+        index = index[0]
+        untouched = False
+        char_key = ALPHA_NUM_CHARS[index]
+        if char_key != last_key:
+            last_key = char_key
+            if char_key == "!":
+                EXEC_CLEAR = True
+            elif char_key == "B":
+                USER_IN = USER_IN[:len(USER_IN) - 1]
+            else:
+                USER_IN += char_key
     if untouched:
         last_key = ""
     return last_key
@@ -106,9 +104,7 @@ def move(dir, steps):
 def game_loop():
     k = 0
     last_key = ""
-    matches = 0
     while True:
-        print(EXEC_CLEAR) #debug
         draw_output(screen, messages, opensans_font)
         for e in event.get():
             if e.type == QUIT:
@@ -122,3 +118,4 @@ def game_loop():
 
 
 game_loop()
+
