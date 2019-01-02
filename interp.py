@@ -44,7 +44,7 @@ def jump(screen, x, y):
 
 def chg_col(screen, col):
 	global color
-	color = col
+	color = COLORS[col]
 
 def fill(screen, col, pos):
 	draw.rect(screen, col, [pos[0]*30, pos[1]*30, 30, 30])
@@ -53,5 +53,5 @@ def bomb(screen, n):
 	n = int(n)
 	for i in range(-n, n+1):
 		for j in range(-n, n+1):
-			fill(color, (i,j))
-CMDS = {"mv": move, "jump": jump, "chg_col": chg_col, "do": do_for, "bomb": bomb}
+			fill(screen, color, (pos[0] + i, pos[1] + j))
+CMDS = {"mv": move, "jump": jump, "col": chg_col, "do": do_for, "bomb": bomb}

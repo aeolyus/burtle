@@ -1,12 +1,8 @@
 ## Imports
-from random import choice
-from pygame import *
-import sys
-import pygame.transform as pytr
-import pygame.image as pyim
-import pygame.font as pyfont
-from interp import *
 from constants import *
+from pygame import *
+from interp import *
+import sys
 
 ## Constants
 WIDTH, HEIGHT = 480, 630
@@ -21,10 +17,10 @@ ALPHA_NUM_KEYS =    [K_a, K_b, K_c, K_d, K_e, K_f, K_g, K_h, K_i, K_j,
                     K_BACKSPACE, K_RETURN,K_SPACE]
 ## Setup
 init()
-pyfont.init()
+font.init()
 screen = display.set_mode(SIZE)
 messages = ["hello","there"]
-opensans_font = pyfont.Font(pyfont.get_default_font(), 11)
+opensans_font = font.Font(font.get_default_font(), 11)
 pos = [0, 0]
 color = RED
 
@@ -62,7 +58,7 @@ def input_manager():
 
 def draw_output(screen, messages, font_obj):
     #White Background
-    source = pytr.scale(pyim.load("white.png"), (WIDTH, 120))
+    source = transform.scale(image.load("white.png"), (WIDTH, 120))
     screen.blit(source, source.get_rect().move(0, WIDTH))
     #Text rendering
     for i in range(min(5, len(messages))):
@@ -72,15 +68,12 @@ def draw_output(screen, messages, font_obj):
         screen.blit(textsurface,(10, WIDTH + 10 + i * 17))
 
 def draw_input(screen, text, clear, font_obj):
-    source = pytr.scale(pyim.load("offwhite.png"), (480, 30))
+    source = transform.scale(image.load("offwhite.png"), (480, 30))
     screen.blit(source, source.get_rect().move(0, 600))
-    if clear:
-        text = ""
+    text = "" if clear else text
     #Text rendering
     textsurface = font_obj.render(str(text), True, (20, 20, 20))
     screen.blit(textsurface,(10, 605))
-
-
 
 def game_loop():
     k = 0
