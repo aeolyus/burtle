@@ -7,13 +7,12 @@ import pygame.image as pyim
 import pygame.font as pyfont
 
 ## Constants
-width, height = 480, 630
-size = (width, height)
-user_input = ""
-user_input = ""
-execute_and_clear = False
-alpha_num_chars = "abcdefghijklmnopqrstuvwxyz0123456789B! "
-alpha_num_keys =    [K_a, K_b, K_c, K_d, K_e, K_f, K_g, K_h, K_i, K_j, 
+WIDTH, HEIGHT = 480, 630
+SIZE = (WIDTH, HEIGHT)
+USER_IN = ""
+EXEC_CLEAR = False
+ALPHA_NUM_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789B! "
+ALPHA_NUM_KEYS =    [K_a, K_b, K_c, K_d, K_e, K_f, K_g, K_h, K_i, K_j, 
                     K_k, K_l, K_m, K_n, K_o,K_p, K_q, K_r, K_s, K_t, 
                     K_u, K_v, K_w, K_x, K_y, K_z, K_0, K_1, K_2, K_3,
                     K_4, K_5, K_6, K_7, K_8, K_9, 
@@ -21,42 +20,42 @@ alpha_num_keys =    [K_a, K_b, K_c, K_d, K_e, K_f, K_g, K_h, K_i, K_j,
 ## Setup
 init()
 pyfont.init()
-screen = display.set_mode(size)
+screen = display.set_mode(SIZE)
 messages = ["hello","there"]
 opensans_font = pyfont.Font(pyfont.get_default_font(), 11)
 
 def user_key_manager(keys, last_key):
-    global user_input
-    global execute_and_clear
+    global USER_IN
+    global EXEC_CLEAR
     untouched = True
     #User Input
-    for i, key in enumerate(alpha_num_keys):
+    for i, key in enumerate(ALPHA_NUM_KEYS):
         if keys[key]:
             untouched = False
-            char_key = alpha_num_chars[i]
+            char_key = ALPHA_NUM_CHARS[i]
             if char_key != last_key:
                 last_key = char_key
                 if char_key == "!":
-                    execute_and_clear = True
+                    EXEC_CLEAR = True
                 elif char_key == "B":
                     if keys[K_LSHIFT] or keys[K_RSHIFT]:
-                        user_input = ""
-                    user_input = user_input[:len(user_input) - 1]
+                        USER_IN = ""
+                    USER_IN = USER_IN[:len(USER_IN) - 1]
                 else:
-                    user_input += char_key
+                    USER_IN += char_key
             break
     if untouched:
         last_key = ""
     return last_key
 
 def input_manager():
-    global execute_and_clear
-    global user_input
-    draw_input(screen, user_input, execute_and_clear, opensans_font)
-    if execute_and_clear:
-        execute_input(user_input)
-        user_input = ""
-        execute_and_clear = False
+    global EXEC_CLEAR
+    global USER_IN
+    draw_input(screen, USER_IN, EXEC_CLEAR, opensans_font)
+    if EXEC_CLEAR:
+        execute_input(USER_IN)
+        USER_IN = ""
+        EXEC_CLEAR = False
 
 def draw_output(screen, messages, font_obj):
     #White Background
@@ -81,9 +80,10 @@ def draw_input(screen, text, clear, font_obj):
     textsurface = font_obj.render(str(text), True, (20, 20, 20))
     screen.blit(textsurface,(10, 605))
 
-def execute_input(user_input):
-    messages.append(user_input)
-    tokens = user_input.split()
+### Move to another file!
+def execute_input(USER_IN):
+    messages.append(USER_IN)
+    tokens = USER_IN.split()
     #move(1, 2)
     funcs = {"move":move}
     funcs[tokens[0]](*tokens[1:])
@@ -91,6 +91,8 @@ def execute_input(user_input):
 colors = [(50,200,50), (255,0,0), (23,44,180)]
 color = [255, 255, 255]
 pos = [0, 0]
+
+# Commands
 def move(dir, steps):
     for i in range(int(steps)):
         draw.rect(screen, colors[int(steps)%2], [pos[0]*30, pos[1]*30, 30, 30])
@@ -99,12 +101,14 @@ def move(dir, steps):
         if (dir == 'u' or dir == 'd'):
             pos[1] += -1 if dir == 'u' else 1
         print(pos) #debugging
+### Moved!
 
 def game_loop():
     k = 0
     last_key = ""
     matches = 0
     while True:
+        print(EXEC_CLEAR) #debug
         draw_output(screen, messages, opensans_font)
         for e in event.get():
             if e.type == QUIT:
