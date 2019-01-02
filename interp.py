@@ -40,7 +40,7 @@ def move(screen, dir, steps):
         pos[1] += dy
 
 def jump(screen, x, y):
-	pos[0], pos[1] = x, y
+	pos[0], pos[1] = int(x), int(y)
 
 def chg_col(screen, col):
 	global color
@@ -50,6 +50,7 @@ def fill(screen, col, pos):
 	draw.rect(screen, col, [pos[0]*30, pos[1]*30, 30, 30])
 
 def bomb(screen, n):
+	n = int(n)
 	for i in range(-n, n+1):
 		for j in range(-n, n+1):
 			fill(color, (i,j))
