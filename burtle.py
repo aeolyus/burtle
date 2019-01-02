@@ -57,17 +57,14 @@ def input_manager():
 
 def draw_output(screen, messages, font_obj):
     #White Background
-    source = pytr.scale(pyim.load("white.png"), (480, 120))
-    screen.blit(source, source.get_rect().move(0, 480))
+    source = pytr.scale(pyim.load("white.png"), (WIDTH, 120))
+    screen.blit(source, source.get_rect().move(0, WIDTH))
     #Text rendering
     for i in range(min(5, len(messages))):
         message = str(messages[::-1][i])
-        if i == 0:
-            col = (0,0,0)
-        else:
-            col = (140, 140, 140)
+        col = (140, 140, 140) if i else (0, 0, 0)
         textsurface = font_obj.render(message, True, col)
-        screen.blit(textsurface,(10, 490 + i * 17))
+        screen.blit(textsurface,(10, WIDTH + 10 + i * 17))
 
 def draw_input(screen, text, clear, font_obj):
     source = pytr.scale(pyim.load("offwhite.png"), (480, 30))
