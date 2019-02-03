@@ -16,10 +16,9 @@ MAROON = (128,0,0)
 COLORS = {"white": WHITE, "red": RED, "orange": ORANGE, "yellow": YELLOW, "green": GREEN, 
 		  "blue": BLUE, "purple": PURPLE, "black": BLACK, "brown": BROWN, "grey": GREY, 
 		  "aqua": AQUA, "pink": PINK, "maroon": MAROON}
-
-DIRS = {"u": (0, -1), "d": (0, 1), "l": (-1,0), "r": (1,0)}
-
 WIDTH, HEIGHT = 480, 630
+SQ_SIZE = 5
+NUM_SQ_WIDE = int(WIDTH/SQ_SIZE)
 SIZE = (WIDTH, HEIGHT)
 EXEC_CLEAR = False
 ALPHA_NUM_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789B! "

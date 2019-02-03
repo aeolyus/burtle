@@ -1,0 +1,8 @@
+let colors ['red' 'yellow' 'orange' 'green' 'blue' 'purple' 'aqua']
+
+for (i (seq 0 50)):
+	jump (rand 0 90) (rand 0 90)
+	let k (rand 1 6)
+	for (j (seq 0 (len colors))):
+		col (get j colors)
+		circ (add k j)

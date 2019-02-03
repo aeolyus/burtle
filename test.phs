@@ -1,0 +1,19 @@
+#Print the first consecutive odd Fibonnaci sum that is a factor of 37
+def (fib n):
+	let x 0
+	let y 1
+	do (m 0 n):
+		let temp x
+		let x y
+		let y (add temp x)
+	return y
+
+let print 0
+let z 1
+let i 1
+while (not_eq (mod z 37) 0):
+	inc i
+	let z (add z (fib i))
+	if (eq print 1):
+		prn z
+prn z
